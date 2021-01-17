@@ -4,8 +4,11 @@ import stockMarketReducer from "./stock.market.reducer";
 
 const INITIAL_STATE = {
     data: {},
-    retrieveStatus: false,
-    retrieveFailure: false
+    trade: {},
+    retrieveStockStatus: false,
+    retrieveTradeStatus: false,
+    dividentFormIsInValid: false,
+    peRatioFormIsInValid: false
 };
 
 export const StockMarketContext = createContext();

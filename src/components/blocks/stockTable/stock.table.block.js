@@ -1,12 +1,14 @@
-import { map } from 'lodash';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Table } from 'react-bootstrap';
-
+import { StockMarketContext } from '../../../contexts/stock.market.context';
 import copyProvider from '../../../resources';
 const getCopy = copyProvider.getResource;
 
-export default function TableBlock({data}) {
+export default function StockTableBlock() {
+  const { state } = useContext(StockMarketContext);
+
   return (
+    state.data.stockMarketData &&
     <Table striped bordered hover>
       <thead>
           <tr>
@@ -18,7 +20,7 @@ export default function TableBlock({data}) {
           </tr>
       </thead>
       <tbody>
-            {data.map(elem => {
+            {state.data.stockMarketData.map(elem => {
               return (
                   <tr key={elem.stockSymbol}>
                       <td>{elem.stockSymbol}</td>

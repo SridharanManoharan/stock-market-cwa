@@ -4,9 +4,14 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 import { StockMarketContext } from '../../../contexts/stock.market.context';
-import { Button, Col, Form, Jumbotron } from 'react-bootstrap';
+import { Button, Form, Jumbotron, Modal, Spinner } from 'react-bootstrap';
 import copyProvider from '../../../resources';
-import { symbol } from 'prop-types';
+import PriceBlock from '../price/price.block';
+import StockBlock from '../stock/stock.block';
+import { BASE_PATH, DIVIDEND_API } from '../../../constants';
+
+const API_BASE_PATH = process.env.MOCK_HOST ? process.env.MOCK_HOST : BASE_PATH;
+const URL = API_BASE_PATH + DIVIDEND_API;
 
 const getCopy = copyProvider.getResource;
 
@@ -14,130 +19,107 @@ const Wrapper = styled.div`
   margin-top: 20px;
 `;
 
-const ErrorWrapper = styled.div`
+const ErrorWrapper = styled.p`
     color: red;
 `;
 
 export default function DividendBlock() {
-    const { state } = useContext(StockMarketContext);
-    const [ data, setData ] = useState(state.data.stockMarketData);
-    const [ price, setPrice ] = useState('');
-    const [ symbol, setSymbol ] = useState('');
+    const { state, dispatch } = useContext(StockMarketContext);
     const [ errorMsg, setErrorMsg ] = useState('');
-    const [ symbolValid, setSymbolValid ] = useState(false);
-    const [ priceValid, setPriceValid ] = useState(false);
-    const [ isfocusForPrice, setIsfocusForPrice ] = useState(false);
-    const [ isfocusForSymbol, setIsfocusForSymbol ] = useState(false);
+    const [ dySymbol, setDySymbol ] = useState('TEA');
+    const [ dyPrice, setDyPrice ] = useState(0);
+    const [ yeild, setYeild ] = useState(0);
+    const [show, setShow] = useState(false);
 
-    const calculateDivident = (e) => {
+    const handleClose = () => setShow(false);
+
+    const handleError = (error) => {
+        dispatch({
+            type: stockMarketTypes.ERROR,
+            payload: { 
+                error
+            }
+        });
+        history.push('/error');
+    };
+    
+    const calculateDivident = async (e) => {
         e.preventDefault();
-        if(errorMsg === '' && symbol !== '') {
-            setSymbolValid(false);
-            setPriceValid(false);
-            const objToCheck = data.filter(elem => elem.stockSymbol === symbol);
+        if(state.dividentFormIsInValid === false) {
+            const symbol = await e.target.elements.dividentSymbol.value;
+            const price = await e.target.elements.dividentPrice.value;
+            const obj = {
+                'stockSymbol': symbol,
+                'stockPrice': price
+            };
+            setErrorMsg('');
+            const dividendYield = await getDividendYield(obj);
+            setDySymbol(dividendYield.stockSymbol);
+            setDyPrice(dividendYield.stockPrice);
+            setYeild(dividendYield.value);
+            setShow(true);
         } else {
-            setSymbolValid(true);
-            setPriceValid(true);
             setErrorMsg('Please check the values before submit');
         }
     }
 
-    const priceOnChange = (e) => {
-        setPrice(e.target.value);
-    }
-
-    const handleFocusForPrice = () => {
-        setIsfocusForPrice(true);
-    };
-
-    const handleBlurForPrice = (e) => {
-        const { value } = e.target;
-        setIsfocusForPrice(false);
-        setError(validate(value, isoCode));
-    };
-
-    const handleFocusForSymbol = () => {
-        setIsfocusForSymbol(true);
-    };
-
-    const handleBlurForSymbol= (e) => {
-        const { value } = e.target;
-        setIsfocusForSymbol(false);
-        setError(validate(value, isoCode));
-    };
-
-    const symbolOnChange = (e) => {
-        if( e.target.value === 'Choose...') {
-            setSymbolValid(true);
-            setErrorMsg('Please select a value for symbol');
-        } else {
-            setSymbolValid(false);
-            setSymbol(e.target.value);
+    const getDividendYield = async (data) => {
+        const response = await fetch(URL, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        if (response.status !== 200 && response.status !== 304) {
+            handleError(getCopy('genericError.heading'));
         }
-        
-    }
-
-    const handleKeyPressPrice = (e) => {
-        const re = /^[0-9]+$/; // numeric only
-        if (!re.test(e.key)) {
-            setPriceValid(true);
-            setErrorMsg("Only number is allowed in price");
-            e.preventDefault();
-        } else {
-            setPriceValid(false);
-            setErrorMsg('');
-        }
+        return response.json();
     };
 
     return (
-    <Jumbotron>
-        <h2>{getCopy('form.dividentTitle')}</h2>
-        {
-            errorMsg !== '' && 
-            <ErrorWrapper>
-                {errorMsg}
-            </ErrorWrapper>
-        }
-        <Wrapper>
-            <Form onSubmit={calculateDivident}>
-
-                <Form.Row isInvalid={true}>
-                    <Form.Group as={Col} controlId="dividentSymbol">
-                    <Form.Label>{getCopy('form.symbolLabel')}</Form.Label>
-                    <Form.Control 
-                        as="select" 
-                        defaultValue="Choose..."
-                        onChange={symbolOnChange}
-                        onFocus={handleFocusForSymbol}
-                        onBlur={handleBlurForSymbol}
-                        isInvalid={symbolValid}
-                        >
-                        <option key={'optionChoose'}>Choose...</option>
-                        {data.map(elem => {
-                            return <option key={'option' + elem.stockSymbol}>{elem.stockSymbol}</option>
-                        })}
-                    </Form.Control>
-                    </Form.Group>
-                    <Form.Group as={Col} controlId="dividentPrice">
-                        <Form.Label>{getCopy('form.priceLabel')}</Form.Label>
-                        <Form.Control 
-                            onChange={priceOnChange}
-                            onKeyPress={handleKeyPressPrice}
-                            onFocus={handleFocusForPrice}
-                            onBlur={handleBlurForPrice}
-                            value={price}
-                            isInvalid={priceValid}
-                            />
-                    </Form.Group>
-                </Form.Row>
-                <Button
-                    id="dividentSubmit"
-                    variant="primary" 
-                    type="submit">
-                    {getCopy('button.submit')}
-                </Button>
-            </Form>
-        </Wrapper>
-    </Jumbotron>
+        <Jumbotron>
+            { state.retrieveStockStatus === false ? (
+            <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner> ) : (
+            <div>
+                <h2>{getCopy('form.dividentTitle')}</h2>
+                <Wrapper>
+                    {
+                        errorMsg !== '' && <ErrorWrapper>{errorMsg}</ErrorWrapper>
+                    }
+                    <Form onSubmit={calculateDivident}>
+                        <Form.Row>
+                            <StockBlock 
+                                fieldIdentifier="dividentSymbol" />
+                            <PriceBlock 
+                                fieldIdentifier="dividentPrice" />
+                        </Form.Row>
+                        <Button
+                            id="dividentSubmit"
+                            variant="primary" 
+                            type="submit">
+                            {getCopy('button.submit')}
+                        </Button>
+                    </Form>
+                </Wrapper>
+            </div>
+            )}
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Dividend Yeild</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Divident yeild for {dySymbol} given price {dyPrice} is {yeild ? yeild : 0}</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </Jumbotron>
     );
 }

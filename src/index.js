@@ -5,6 +5,7 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Error from './components/pages/error/error.page';
 import Landing from './components/pages/landing/landing.page';
+import TradePage from './components/pages/trade/trade.page';
 import StockMarketContextProvider from './contexts/stock.market.context';
 
 // IE fix for window location origin
@@ -20,6 +21,9 @@ ReactDOM.render(
                     <Redirect to="/landing" />} />
                 <Route path="/landing">
                     <Landing />
+                </Route>
+                <Route path="/trade">
+                    <TradePage />
                 </Route>
                 <Route path="/error">
                     <Error />

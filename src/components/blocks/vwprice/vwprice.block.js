@@ -6,12 +6,11 @@ import styled from 'styled-components';
 import { StockMarketContext } from '../../../contexts/stock.market.context';
 import { Button, Form, Jumbotron, Modal, Spinner } from 'react-bootstrap';
 import copyProvider from '../../../resources';
-import PriceBlock from '../price/price.block';
 import StockBlock from '../stock/stock.block';
-import { BASE_PATH, PERATIO_API } from '../../../constants';
+import { BASE_PATH, VOLUME_WEIGHTED_API } from '../../../constants';
 
 const API_BASE_PATH = process.env.MOCK_HOST ? process.env.MOCK_HOST : BASE_PATH;
-const URL = API_BASE_PATH + PERATIO_API;
+const URL = API_BASE_PATH + VOLUME_WEIGHTED_API;
 
 const getCopy = copyProvider.getResource;
 
@@ -23,12 +22,11 @@ const ErrorWrapper = styled.p`
     color: red;
 `;
 
-export default function PERatioBlock() {
+export default function VWPriceBlock() {
     const { state, dispatch } = useContext(StockMarketContext);
     const [ errorMsg, setErrorMsg ] = useState('');
-    const [ peSymbol, setPeSymbol ] = useState('TEA');
-    const [ pePrice, setPePrice ] = useState(0);
-    const [ peRatio, setPeRatio ] = useState({});
+    const [ vwSymbol, setvwSymbol ] = useState('TEA');
+    const [ vwPrice, setVwPrice ] = useState({});
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -43,27 +41,24 @@ export default function PERatioBlock() {
         history.push('/error');
     };
 
-    const calculatePeRatio = async (e) => {
+    const calculateVwPrice = async (e) => {
         e.preventDefault();
         if(state.peRatioFormIsInValid === false) {
-            const symbol = await e.target.elements.peratioSymbol.value;
-            const price = await e.target.elements.peratioPrice.value;
+            const symbol = await e.target.elements.vwPriceSymbol.value;
             const obj = {
                 'stockSymbol': symbol,
-                'stockPrice': price
             };
             setErrorMsg('');
-            const peRatio = await getPeRatioValue(obj);
-            setPeSymbol(peRatio.stockSymbol);
-            setPePrice(peRatio.stockPrice);
-            setPeRatio(peRatio.value);
+            const data = await getVwPriceValue(obj);
+            setvwSymbol(data.stockSymbol);
+            setVwPrice(data.vwprice);
             setShow(true);
         } else {
             setErrorMsg('Please check the values before submit');
         }
     }
 
-    const getPeRatioValue = async (data) => {
+    const getVwPriceValue = async (data) => {
         const response = await fetch(URL, {
             method: 'POST',
             mode: 'cors',
@@ -87,20 +82,18 @@ export default function PERatioBlock() {
                 <span className="sr-only">Loading...</span>
             </Spinner> ) : (
             <div>
-            <h2>{getCopy('form.peratioTitle')}</h2>
+            <h2>{getCopy('form.vwpriceTitle')}</h2>
             <Wrapper>
                 {
                     errorMsg !== '' && <ErrorWrapper>{errorMsg}</ErrorWrapper>
                 }
-                <Form onSubmit={calculatePeRatio}>
+                <Form onSubmit={calculateVwPrice}>
                     <Form.Row>
                         <StockBlock 
-                            fieldIdentifier="peratioSymbol" />
-                        <PriceBlock 
-                            fieldIdentifier="peratioPrice" />
+                            fieldIdentifier="vwPriceSymbol" />
                     </Form.Row>
                     <Button
-                        id="peratioSubmit"
+                        id="vwpriceSubmit"
                         variant="primary" 
                         type="submit">
                         {getCopy('button.submit')}
@@ -111,9 +104,9 @@ export default function PERatioBlock() {
         )}
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>PE-Ratio</Modal.Title>
+                <Modal.Title>Volume Weighted Stock Price</Modal.Title>
             </Modal.Header>
-            <Modal.Body>PE-Ratio for {peSymbol} given price {pePrice} is {peRatio ? peRatio: 0}</Modal.Body>
+            <Modal.Body>Volume Weighted Stock Price for {vwSymbol} is {vwPrice ? vwPrice: 0}</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
                     Close

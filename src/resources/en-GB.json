@@ -5,6 +5,13 @@
   "button": {
     "submit": "Submit"
   },
+  "navBar": {
+    "appName": "Stock Market Application",
+    "home": "Home",
+    "tradeLog": "Trade Log",
+    "recordTrade": "Record Trade",
+    "gbce": "GBCE"
+  },
   "genericError": {
     "heading": "Something went wrong !!"
   },
@@ -18,6 +25,25 @@
       "Par Value"
     ]
   },
+  "TradePage": {
+    "tableHeaders": [
+      "Quantity",
+      "Stock Symbol",
+      "Trade Price",
+      "Trade Type",
+      "Timestamp"
+    ],
+    "noLogHeader": "No logs found",
+    "noLogDescription": "Sorry, no trade record found at the moment. Please record a atleast one trade to get data here."
+  },
+  "gbcePage": {
+    "heading": "GBCE All Share Index",
+    "description": "Calculated GBCE All Share Index using the geometric mean of prices for all stocks is "
+  },
+  "model": {
+    "peratio": "PE-Ratio",
+    "dividend": "Dividend Yeild"
+  },
   "errorPage": {
     "heading": "Something went wrong !!",
     "description": "We're sorry for the inconvenience, there was a technical problem. Please try again later."
@@ -25,7 +51,8 @@
   "form": {
     "priceLabel": "Price",
     "symbolLabel": "Stock symbol",
-    "dividentTitle": "Calculate dividend:",
-    "peratioTitle": "Calculate peratio:"
+    "dividentTitle": "Calculate Dividend:",
+    "peratioTitle": "Calculate PeRatio:",
+    "vwpriceTitle": "Calculate Volume Weighted Price:"
   }
 }

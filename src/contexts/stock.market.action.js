@@ -5,10 +5,32 @@ export const addError = (payload, state) => {
     };
 };
 
-export const retrieveStatus = (payload, state) => {
+export const addDividendFormError = (payload, state) => {
     return {
         ...state,
-        retrieveStatus: payload.status,
+        dividentFormIsInValid: payload,
+    };
+};
+
+export const addPeRatioFormError = (payload, state) => {
+    return {
+        ...state,
+        peRatioFormIsInValid: payload,
+    };
+};
+
+export const retrieveStock = (payload, state) => {
+    return {
+        ...state,
+        retrieveStockStatus: payload.status,
         data: payload.data
+    };
+};
+
+export const retrieveTrade = (payload, state) => {
+    return {
+        ...state,
+        retrieveTradeStatus: payload.status,
+        trade: payload.trade
     };
 };

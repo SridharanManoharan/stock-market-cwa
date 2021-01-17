@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { createContext, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BASE_PATH, RETRIEVE_API } from '../constants';
+import { BASE_PATH, TRADE_API } from '../constants';
 import { StockMarketContext } from './stock.market.context';
 import stockMarketTypes from './stock.market.types';
 import copyProvider from '../resources';
@@ -9,11 +9,11 @@ import copyProvider from '../resources';
 const getCopy = copyProvider.getResource;
 
 const API_BASE_PATH = process.env.MOCK_HOST ? process.env.MOCK_HOST : BASE_PATH;
-const URL = API_BASE_PATH + RETRIEVE_API;
+const URL = API_BASE_PATH + TRADE_API;
 
-export const RetrieveContext = createContext();
+export const TradeContext = createContext();
 
-const RetrieveContextProvider = ({ children }) => {
+const TradeContextProvider = ({ children }) => {
     const { dispatch } = useContext(StockMarketContext);
     const history = useHistory();
 
@@ -28,7 +28,7 @@ const RetrieveContextProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        async function retrieveStockMarketData() {
+        async function retrieveTradeData() {
             try {
                 const response = await fetch(URL, {
                     method: 'GET',
@@ -41,12 +41,12 @@ const RetrieveContextProvider = ({ children }) => {
                 if (response.status !== 200 && response.status !== 304) {
                     handleError(getCopy('genericError.heading'));
                 } else {
-                    const data = await response.json();
+                    const trade = await response.json();
                     dispatch({
-                        type: stockMarketTypes.RETRIEVE_STOCK,
+                        type: stockMarketTypes.RETRIEVE_TRADE,
                         payload: {
                             status: true,
-                            data
+                            trade
                         }
                     });
                 }
@@ -54,18 +54,18 @@ const RetrieveContextProvider = ({ children }) => {
                 handleError(error);
             }
         }
-        retrieveStockMarketData();
+        retrieveTradeData();
     }, []);
 
     return (
-        <RetrieveContext.Provider value={{}}>
+        <TradeContext.Provider value={{}}>
             {children}
-        </RetrieveContext.Provider>
+        </TradeContext.Provider>
     );
 };
 
-export default RetrieveContextProvider;
+export default TradeContextProvider;
 
-RetrieveContextProvider.propTypes = {
+TradeContextProvider.propTypes = {
     children: PropTypes.node.isRequired
 };

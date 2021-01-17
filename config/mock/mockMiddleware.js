@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
 
   if (
     req.method === 'GET' &&
-    req.originalUrl === '/customer-api/browser/retrieve'
+    req.originalUrl === '/customer-api/browser/stock'
   ) {
 
     return res.jsonp({
@@ -50,35 +50,58 @@ module.exports = function (req, res, next) {
 
   if(
     req.method === 'POST' && 
-    req._parsedUrl.pathname === '/customer-api/browser/dividendyield'
+    req._parsedUrl.pathname === '/customer-api/browser/stock/yield'
     ) {
-      let dividendYieldValue = {}
-      if(req.query.stockSymbol !== undefined && req.query.stockSymbol !== 'GIN') {
-        dividendYieldValue = {
-          "symbol": req.query.stockSymbol,
+      return res.status(200).jsonp({
+          "stockSymbol": req.body.stockSymbol,
           "stockPrice": req.body.stockPrice,
-          "dividendYield": 0
-        }
-      } else if (req.query.stockSymbol !== undefined && req.query.stockSymbol === 'GIN') {
-        dividendYieldValue = {
-          "symbol": req.query.stockSymbol,
-          "stockPrice": req.body.stockPrice,
-          "dividendYield": 0
-        }
-      }
-      return res.status(200).jsonp(dividendYieldValue);
+          "value": 30
+      });
   }
 
+  if(
+    req.method === 'POST' && 
+    req._parsedUrl.pathname === '/customer-api/browser/stock/peratio'
+    ) {
+      return res.status(200).jsonp({
+          "stockSymbol": req.body.stockSymbol,
+          "stockPrice": req.body.stockPrice,
+          "value": 120
+      });
+  }
+
+  if(
+    req.method === 'POST' && 
+    req._parsedUrl.pathname === '/customer-api/browser/stock/vwprice'
+    ) {
+      return res.status(200).jsonp({
+          "stockSymbol": req.body.stockSymbol,
+          "vwprice": 10
+      });
+  }
+  
   if (
     req.method === 'POST' &&
-    req.originalUrl === '/customer-api/browser/dividendyield'
+    req.originalUrl === '/customer-api/browser/stock/trade'
   ) {
-    return res.status(200).jsonp({
-      "symbol": "GIN",
-      "stockPrice": 200,
-      "dividendYield": 1
+    return res.status(201).jsonp({
+      "sharesQuantity": 10, 
+      "symbol": "TEA", 
+      "tradePrice": 10, 
+      "tradeType": "buy",
+      "createdAt": new Date()
     });
   }
 
+  if (
+    req.method === 'GET' &&
+    req.originalUrl === '/customer-api/browser/stock/trade'
+  ) {
+    return res.status(200).jsonp({
+      "trade": [
+
+      ]
+    });
+  }
   next();
 };
