@@ -19,6 +19,13 @@ export const addPeRatioFormError = (payload, state) => {
     };
 };
 
+export const addRecordFormError = (payload, state) => {
+    return {
+        ...state,
+        recordTradeFormIsInValid: payload,
+    };
+};
+
 export const retrieveStock = (payload, state) => {
     return {
         ...state,

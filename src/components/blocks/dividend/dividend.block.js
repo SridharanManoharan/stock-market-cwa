@@ -3,6 +3,7 @@ import React, {
     useContext
 } from 'react';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { StockMarketContext } from '../../../contexts/stock.market.context';
 import { Button, Form, Jumbotron, Modal, Spinner } from 'react-bootstrap';
 import copyProvider from '../../../resources';
@@ -25,6 +26,7 @@ const ErrorWrapper = styled.p`
 
 export default function DividendBlock() {
     const { state, dispatch } = useContext(StockMarketContext);
+    const history = useHistory();
     const [ errorMsg, setErrorMsg ] = useState('');
     const [ dySymbol, setDySymbol ] = useState('TEA');
     const [ dyPrice, setDyPrice ] = useState(0);
@@ -90,7 +92,7 @@ export default function DividendBlock() {
                 <h2>{getCopy('form.dividentTitle')}</h2>
                 <Wrapper>
                     {
-                        errorMsg !== '' && <ErrorWrapper>{errorMsg}</ErrorWrapper>
+                        errorMsg !== '' && state.dividentFormIsInValid && <ErrorWrapper>{errorMsg}</ErrorWrapper>
                     }
                     <Form onSubmit={calculateDivident}>
                         <Form.Row>

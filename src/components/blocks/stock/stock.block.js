@@ -24,8 +24,10 @@ export default function StockBlock({ fieldIdentifier }) {
     useEffect(() => {
         if(fieldIdentifier === 'peratioSymbol') {
             setValid(state.peRatioFormIsInValid);
-        } else {
+        } else if(fieldIdentifier === 'dividentSymbol') {
             setValid(state.dividentFormIsInValid);
+        } else if(fieldIdentifier === 'recordTradeSymbol') {
+            setValid(state.recordTradeFormIsInValid);
         }
     });
 

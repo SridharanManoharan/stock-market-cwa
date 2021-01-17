@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import HeaderBlock from '../../blocks/header/header.block';
 import StockTableBlock from '../../blocks/stockTable/stock.table.block';
 import DividendBlock from '../../blocks/dividend/dividend.block';

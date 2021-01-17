@@ -8,6 +8,8 @@ import Landing from './components/pages/landing/landing.page';
 import TradePage from './components/pages/trade/trade.page';
 import GBCEPage from './components/pages/gbce/gbce.page';
 import StockMarketContextProvider from './contexts/stock.market.context';
+import RecordPage from './components/pages/record/record.page';
+import SuccessPage from './components/pages/success/success.page';
 
 // IE fix for window location origin
 if (!window.location.origin) {
@@ -26,8 +28,8 @@ ReactDOM.render(
                 <Route path="/trade">
                     <TradePage />
                 </Route>
-                <Route path="/recordTrade">
-                    <TradePage />
+                <Route path="/tradeForm">
+                    <RecordPage />
                 </Route>                
                 <Route path="/gbce">
                     <GBCEPage />
@@ -35,6 +37,9 @@ ReactDOM.render(
                 <Route path="/error">
                     <Error />
                 </Route>
+                <Route path="/success">
+                    <SuccessPage />
+                </Route>  
             </Switch>
         </Router>
     </StockMarketContextProvider>,

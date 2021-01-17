@@ -90,7 +90,7 @@ export default function PERatioBlock() {
             <h2>{getCopy('form.peratioTitle')}</h2>
             <Wrapper>
                 {
-                    errorMsg !== '' && <ErrorWrapper>{errorMsg}</ErrorWrapper>
+                    errorMsg !== '' && state.peRatioFormIsInValid && <ErrorWrapper>{errorMsg}</ErrorWrapper>
                 }
                 <Form onSubmit={calculatePeRatio}>
                     <Form.Row>

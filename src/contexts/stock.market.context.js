@@ -9,7 +9,8 @@ const INITIAL_STATE = {
     retrieveStockStatus: false,
     retrieveTradeStatus: false,
     dividentFormIsInValid: false,
-    peRatioFormIsInValid: false
+    peRatioFormIsInValid: false,
+    recordTradeFormIsInValid: false
 };
 
 export const StockMarketContext = createContext();

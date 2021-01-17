@@ -11,6 +11,10 @@ const Wrapper = styled.div`
   padding: 30px;
 `;
 
+const ErrorHeadingWrapper = styled.h1`
+    color: red;
+`;
+
 function ErrorPattern() {
     const history = useHistory();
 
@@ -26,7 +30,7 @@ function ErrorPattern() {
                     <Row>
                         <Col>
                             <Jumbotron>
-                                <h1>{getCopy('errorPage.heading')}</h1>
+                                <ErrorHeadingWrapper>{getCopy('errorPage.heading')}</ErrorHeadingWrapper>
                                 <p>
                                     {getCopy('errorPage.description')}
                                 </p>
