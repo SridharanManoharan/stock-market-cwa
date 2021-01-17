@@ -1,4 +1,4 @@
-import { addError, addDividendFormError, addPeRatioFormError, retrieveStock, retrieveTrade } from './stock.market.action';
+import { addError, addDividendFormError, addPeRatioFormError, retrieveStock, retrieveTrade, retrieveGBCE } from './stock.market.action';
 import stockMarketTypes from './stock.market.types';
 
 const stockMarketReducer = (state, action) => {
@@ -13,6 +13,8 @@ const stockMarketReducer = (state, action) => {
         return retrieveStock(action.payload, state);
     case stockMarketTypes.RETRIEVE_TRADE:
         return retrieveTrade(action.payload, state);
+    case stockMarketTypes.RETRIEVE_GBCE:
+        return retrieveGBCE(action.payload, state);
     default:
         return state;
     }

@@ -99,9 +99,37 @@ module.exports = function (req, res, next) {
   ) {
     return res.status(200).jsonp({
       "trade": [
-
+        {
+          "sharesQuantity": 10, 
+          "symbol": "TEA", 
+          "tradePrice": 10, 
+          "tradeType": "buy",
+          "createdAt": new Date()
+        },
+        {
+          "sharesQuantity": 10, 
+          "symbol": "TEA", 
+          "tradePrice": 10, 
+          "tradeType": "buy",
+          "createdAt": new Date()
+        },
+        {
+          "sharesQuantity": 10, 
+          "symbol": "TEA", 
+          "tradePrice": 10, 
+          "tradeType": "buy",
+          "createdAt": new Date()
+        }
       ]
     });
   }
+
+  if (
+    req.method === 'GET' &&
+    req.originalUrl === '/customer-api/browser/stock/gbce'
+  ) {
+    return res.status(200).jsonp({"gbce": 100.00});
+  }
+
   next();
 };

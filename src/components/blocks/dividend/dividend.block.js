@@ -82,7 +82,7 @@ export default function DividendBlock() {
 
     return (
         <Jumbotron>
-            { state.retrieveStockStatus === false ? (
+            { state.retrieveStatus === false ? (
             <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
             </Spinner> ) : (

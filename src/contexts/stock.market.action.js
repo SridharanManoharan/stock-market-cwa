@@ -34,3 +34,10 @@ export const retrieveTrade = (payload, state) => {
         trade: payload.trade
     };
 };
+
+export const retrieveGBCE = (payload, state) => {
+    return {
+        ...state,
+        gbce: payload.gbce
+    };
+}

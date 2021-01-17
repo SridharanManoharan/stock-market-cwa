@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Error from './components/pages/error/error.page';
 import Landing from './components/pages/landing/landing.page';
 import TradePage from './components/pages/trade/trade.page';
+import GBCEPage from './components/pages/gbce/gbce.page';
 import StockMarketContextProvider from './contexts/stock.market.context';
 
 // IE fix for window location origin
@@ -25,6 +26,12 @@ ReactDOM.render(
                 <Route path="/trade">
                     <TradePage />
                 </Route>
+                <Route path="/recordTrade">
+                    <TradePage />
+                </Route>                
+                <Route path="/gbce">
+                    <GBCEPage />
+                </Route>                
                 <Route path="/error">
                     <Error />
                 </Route>

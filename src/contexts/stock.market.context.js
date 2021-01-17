@@ -5,6 +5,7 @@ import stockMarketReducer from "./stock.market.reducer";
 const INITIAL_STATE = {
     data: {},
     trade: {},
+    gbce: 0,
     retrieveStockStatus: false,
     retrieveTradeStatus: false,
     dividentFormIsInValid: false,
