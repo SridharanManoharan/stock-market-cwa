@@ -18,7 +18,7 @@ npm install
 
 ```
 
-## To Run the project
+## To Run the project with mock server
 
 ```bash
 npm run dev:mock
@@ -26,10 +26,20 @@ npm run dev:mock
 
 It should automatically launch the dev url in the browser.
 
-## For production build
+## For production build with back-end API
+
+Clone the stock-market-backend repo [https://github.com/SridharanManoharan/stock-market-backend]
+
+```bash
+git clone https://github.com/SridharanManoharan/stock-market-backend.git
+```
+Follow the instructions mentioned the README file of stock-market-backend to start the application.
+
+
+Run CWA with the below command and this will create a "prod" in the <root dir>
 
 ```bash
 npm run build
 ```
 
-prod folder will get created on the root dir with production optimised code.
+prod folder will get created on the root dir with production optimised code. Open the index.html file from the prod folder to run application intergrated with backend API.
