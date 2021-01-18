@@ -10,7 +10,7 @@ const stockMarketReducer = (state, action) => {
     case stockMarketTypes.PERATIO_FORM_ERROR:
         return addPeRatioFormError(action.payload, state);
     case stockMarketTypes.RECORD_FORM_ERROR:
-        return addPeRatioFormError(action.payload, state); 
+        return addRecordFormError(action.payload, state); 
     case stockMarketTypes.RETRIEVE_STOCK:
         return retrieveStock(action.payload, state);
     case stockMarketTypes.RETRIEVE_TRADE:

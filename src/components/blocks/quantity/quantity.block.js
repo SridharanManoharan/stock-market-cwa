@@ -69,7 +69,7 @@ function QuantityBlock() {
     };
 
     return (
-        <Form.Group controlId="recordForm.recordQuantity">
+        <Form.Group id="fGroupRecordQuantity" controlId="recordForm.recordQuantity">
             <Form.Label>Quantity</Form.Label>
             <Form.Control 
                 name="recordQuantity"
@@ -82,7 +82,7 @@ function QuantityBlock() {
                 onKeyPress={handleKeyPress}
                 isInvalid={quantityInValid}
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback id="errorFeedbackRecordQuantity" type="invalid">
                 {errorMsg}
             </Form.Control.Feedback>
         </Form.Group>

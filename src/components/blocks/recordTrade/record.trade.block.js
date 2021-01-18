@@ -7,6 +7,7 @@ import QuantityBlock from '../../blocks/quantity/quantity.block';
 import TradePriceBlock from '../../blocks/tradePrice/trade.price.block';
 import copyProvider from '../../../resources';
 import { BASE_PATH, TRADE_API } from '../../../constants';
+import stockMarketTypes from '../../../contexts/stock.market.types';
 
 const API_BASE_PATH = process.env.MOCK_HOST ? process.env.MOCK_HOST : BASE_PATH;
 const URL = API_BASE_PATH + TRADE_API;
@@ -17,6 +18,10 @@ const Wrapper = styled.div`
   padding-top: 40px;
 `;
 
+const ErrorWrapper = styled.p`
+    color: red;
+`;
+
 const FormWrapper = styled.div`
     padding: 40px;
     form.tradeForm {
@@ -25,7 +30,7 @@ const FormWrapper = styled.div`
 `;
 
 function RecordTradeBlock() {
-    const { state } = useContext(StockMarketContext);
+    const { state, dispatch } = useContext(StockMarketContext);
     const history = useHistory();
     const [ errorMsg, setErrorMsg ] = useState('');
 
@@ -41,7 +46,14 @@ function RecordTradeBlock() {
 
     const recordTradeLog = async (e) => {
         e.preventDefault();
-        if(state.recordTradeFormIsInValid === false) {
+        if(document.getElementById('errorFeedbackRecordQuantity').innerHTML.length >= 0 ||
+            document.getElementById('errorFeedbackRecordPrice').innerHTML.length >= 0) {
+                dispatch({
+                    type: stockMarketTypes.RECORD_FORM_ERROR,
+                    payload: true
+                });
+                setErrorMsg('Please check the values before submit');
+        } else if(state.recordTradeFormIsInValid === false) {
             const symbol = await e.target.elements.recordsymbol.value;
             const tradeType = await e.target.elements.recordTradeType.value;
             const price = await e.target.elements.recordPrice.value;
@@ -54,8 +66,6 @@ function RecordTradeBlock() {
             };
             setErrorMsg('');
             const tradeLog = await updateTradeLog(obj);
-        } else {
-            setErrorMsg('Please check the values before submit');
         }
     };
 

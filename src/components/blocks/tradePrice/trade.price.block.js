@@ -81,7 +81,7 @@ export default function TradePriceBlock() {
     };
 
     return (
-        <Form.Group controlId="recordForm.recordPrice">
+        <Form.Group id="fGroupRecordPrice" controlId="recordForm.recordPrice">
             <Form.Label>Trade Price</Form.Label>
             <Form.Control 
                 type="text" 
@@ -93,7 +93,7 @@ export default function TradePriceBlock() {
                 onBlur={handleBlur}
                 onKeyPress={handleKeyPress}
                 isInvalid={priceInValid} />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback id="errorFeedbackRecordPrice" type="invalid">
                 {errorMsg}
             </Form.Control.Feedback>
         </Form.Group>
