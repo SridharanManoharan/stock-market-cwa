@@ -20,7 +20,7 @@ function LandingPattern() {
         <SpinnerBlock />
         )
         : (
-        <div>
+        <div data-testid="landingPatternID">
             <HeaderBlock/>
             <Wrapper>
                 <Container fluid="md">

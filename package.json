@@ -51,6 +51,7 @@
     "react-app-polyfill": "^2.0.0",
     "react-test-renderer": "^17.0.1",
     "react-testing-library": "^8.0.1",
+    "regenerator-runtime": "^0.13.7",
     "style-loader": "^2.0.0",
     "svg-url-loader": "^7.1.1",
     "terser-webpack-plugin": "^2.3.8",

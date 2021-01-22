@@ -4,12 +4,7 @@ import { Container, Jumbotron } from 'react-bootstrap';
 import HeaderBlock from '../../blocks/header/header.block';
 import SpinnerBlock from '../../blocks/spinner/spinner.block';
 import copyProvider from '../../../resources';
-import { StockMarketContext } from '../../../contexts/stock.market.context';
-import { BASE_PATH, GBCE_API } from '../../../constants';
 import { GBCEContext } from '../../../contexts/gbce.context';
-
-const API_BASE_PATH = process.env.MOCK_HOST ? process.env.MOCK_HOST : BASE_PATH;
-const URL = API_BASE_PATH + GBCE_API;
 
 const Wrapper = styled.div`
   padding: 30px;
