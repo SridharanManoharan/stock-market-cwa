@@ -9,9 +9,9 @@ const Wrapper = styled.div`
 
 function RecordPage() {
     return (
-        <Wrapper>
+        <Wrapper data-testid="recordPageID">
             <RetrieveContextProvider>
-                <RecordPattern/>
+                <RecordPattern />
             </RetrieveContextProvider>
         </Wrapper>
     );

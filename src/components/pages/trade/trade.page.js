@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
 function TradePage() {
     return (
-        <Wrapper>
+        <Wrapper data-testid="tradePageID">
             <TradeContextProvider>
                 <TradePattern/>
             </TradeContextProvider>

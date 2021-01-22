@@ -9,9 +9,9 @@ const Wrapper = styled.div`
 
 function LandingPage() {
     return (
-        <Wrapper>
+        <Wrapper data-testid="landingPageID">
             <RetrieveContextProvider>
-                <LandingPattern/>
+                <LandingPattern />
             </RetrieveContextProvider>
         </Wrapper>
     );

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 
 function SuccessPage() {
     return (
-        <Wrapper>
+        <Wrapper data-testid="successPageID">
             <SuccessPattern />
         </Wrapper>
     );

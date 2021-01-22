@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 
 function GBCEPage() {
     return (
-        <Wrapper>
+        <Wrapper data-testid="gbcePageID">
             <GBCEContextProvider>
                 <GBCEPattern />
             </GBCEContextProvider>

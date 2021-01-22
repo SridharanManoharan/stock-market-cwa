@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 
 function ErrorPage() {
     return (
-        <Wrapper>
+        <Wrapper data-testid="errorPageID">
             <ErrorPattern />
         </Wrapper>
     );
