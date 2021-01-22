@@ -8,7 +8,7 @@ const SpinnerWrapper = styled.div`
 
 function SpinnerBlock() {
     return (
-        <SpinnerWrapper>
+        <SpinnerWrapper data-testid="stockMarketSpinnerID">
             <Container fluid="md">
                 <Row className="justify-content-md-center">
                     <Col md="auto">

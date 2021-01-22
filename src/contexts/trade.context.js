@@ -14,7 +14,7 @@ const URL = API_BASE_PATH + TRADE_API;
 export const TradeContext = createContext();
 
 const TradeContextProvider = ({ children }) => {
-    const { dispatch } = useContext(StockMarketContext);
+    const { state, dispatch } = useContext(StockMarketContext);
     const history = useHistory();
 
     const handleError = (error) => {
@@ -58,7 +58,7 @@ const TradeContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <TradeContext.Provider value={{}}>
+        <TradeContext.Provider value={{tradeRecord: state.trade}}>
             {children}
         </TradeContext.Provider>
     );

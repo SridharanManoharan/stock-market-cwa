@@ -43,8 +43,9 @@ export default function VWPriceBlock() {
 
     const calculateVwPrice = async (e) => {
         e.preventDefault();
+        const {vwPriceSymbol} = e.target.elements;
         if(state.peRatioFormIsInValid === false) {
-            const symbol = await e.target.elements.vwPriceSymbol.value;
+            const symbol = await vwPriceSymbol.value;
             const obj = {
                 'stockSymbol': symbol,
             };

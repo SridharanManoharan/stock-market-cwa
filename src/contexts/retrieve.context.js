@@ -14,7 +14,8 @@ const URL = API_BASE_PATH + RETRIEVE_API;
 export const RetrieveContext = createContext();
 
 const RetrieveContextProvider = ({ children }) => {
-    const { dispatch } = useContext(StockMarketContext);
+    const { state, dispatch } = useContext(StockMarketContext);
+
     const history = useHistory();
 
     const handleError = (error) => {
@@ -58,7 +59,7 @@ const RetrieveContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <RetrieveContext.Provider value={{}}>
+        <RetrieveContext.Provider value={{stockData: state.data}}>
             {children}
         </RetrieveContext.Provider>
     );

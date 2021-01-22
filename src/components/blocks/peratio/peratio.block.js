@@ -45,9 +45,10 @@ export default function PERatioBlock() {
 
     const calculatePeRatio = async (e) => {
         e.preventDefault();
+        const {peratioSymbol, peratioPrice} = e.target.elements;
         if(state.peRatioFormIsInValid === false) {
-            const symbol = await e.target.elements.peratioSymbol.value;
-            const price = await e.target.elements.peratioPrice.value;
+            const symbol = await peratioSymbol.value;
+            const price = await peratioPrice.value;
             const obj = {
                 'stockSymbol': symbol,
                 'stockPrice': price

@@ -57,7 +57,8 @@ export default function PriceBlock({ fieldIdentifier }) {
     }
 
     const handleChange = (e) => {
-        setPrice(e.target.value);
+        const { value } = e.target;
+        setPrice(value);
     }
 
     const handleFocus = (e) => {

@@ -46,18 +46,19 @@ function RecordTradeBlock() {
 
     const recordTradeLog = async (e) => {
         e.preventDefault();
-        if(document.getElementById('errorFeedbackRecordQuantity').innerHTML.length >= 0 ||
-            document.getElementById('errorFeedbackRecordPrice').innerHTML.length >= 0) {
+        const {recordsymbol, recordTradeType, recordPrice, recordQuantity} = e.target.elements;
+        if(document.getElementById('errorFeedbackRecordQuantity').innerHTML.length > 0 ||
+            document.getElementById('errorFeedbackRecordPrice').innerHTML.length > 0) {
                 dispatch({
                     type: stockMarketTypes.RECORD_FORM_ERROR,
                     payload: true
                 });
                 setErrorMsg('Please check the values before submit');
         } else if(state.recordTradeFormIsInValid === false) {
-            const symbol = await e.target.elements.recordsymbol.value;
-            const tradeType = await e.target.elements.recordTradeType.value;
-            const price = await e.target.elements.recordPrice.value;
-            const quantity = await e.target.elements.recordQuantity.value;
+            const symbol = await recordsymbol.value;
+            const tradeType = await recordTradeType.value;
+            const price = await recordPrice.value;
+            const quantity = await recordQuantity.value;
             const obj = {
                 "sharesQuantity": quantity, 
                 "symbol": symbol, 

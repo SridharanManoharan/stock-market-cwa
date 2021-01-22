@@ -47,9 +47,10 @@ export default function DividendBlock() {
     
     const calculateDivident = async (e) => {
         e.preventDefault();
+        const {dividentSymbol, dividentPrice} = e.target.elements;
         if(state.dividentFormIsInValid === false) {
-            const symbol = await e.target.elements.dividentSymbol.value;
-            const price = await e.target.elements.dividentPrice.value;
+            const symbol = await dividentSymbol.value;
+            const price = await dividentPrice.value;
             const obj = {
                 'stockSymbol': symbol,
                 'stockPrice': price

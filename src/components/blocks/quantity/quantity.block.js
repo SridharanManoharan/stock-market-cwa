@@ -39,7 +39,8 @@ function QuantityBlock() {
     }
 
     const handleChange = (e) => {
-        setQuantity(e.target.value);
+        const { value } = e.target;
+        setQuantity(value);
     }
 
     const handleFocus = (e) => {

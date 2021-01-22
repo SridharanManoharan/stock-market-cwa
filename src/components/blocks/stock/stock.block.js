@@ -32,7 +32,8 @@ export default function StockBlock({ fieldIdentifier }) {
     });
 
     const handleChange = (e) => {
-        setStockSymbol(e.target.value);
+        const { value } = e.target;
+        setStockSymbol(value);
     };
 
     return (

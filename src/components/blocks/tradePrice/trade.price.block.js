@@ -51,7 +51,8 @@ export default function TradePriceBlock() {
     }
 
     const handleChange = (e) => {
-        setPrice(e.target.value);
+        const { value } = e.target;
+        setPrice(value);
     }
 
     const handleFocus = (e) => {
