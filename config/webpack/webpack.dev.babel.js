@@ -81,7 +81,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('development'),
-                MOCK_HOST: JSON.stringify('http://localhost:9000')
+                MOCK_HOST: JSON.stringify('http://localhost:3000')
             }
         }),
         new webpack.HotModuleReplacementPlugin()
